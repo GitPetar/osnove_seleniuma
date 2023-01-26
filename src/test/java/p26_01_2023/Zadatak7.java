@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +33,9 @@ public static void main(String[] args) throws InterruptedException {
         System.out.println("Kategorija \"Automobili\" nije na prvom mestu");
     }
     kategorije.get(0).click();
-    kategorije = driver.findElements(By.xpath("//ion-list[1]//b"));
     Thread.sleep(1000);
-    if (kategorije.get(0).getText().equals("Automobili")) {
-        System.out.println("Kategorija \"Automobili\" je na prvom mestu");
-    } else {
-        System.out.println("Kategorija \"Automobili\" nije na prvom mestu");
+    if (ExpectedConditions.stalenessOf(kategorije.get(0)).apply(driver)) {
+        System.out.println("Kategorija \"Automobili\" je izbacena s liste");
     }
     Thread.sleep(1000);
     driver.quit();
