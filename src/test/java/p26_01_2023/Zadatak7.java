@@ -4,8 +4,7 @@ package p26_01_2023;
 //Ispisati sve nazive kategorija iz leve navigacije
 //Validirati da je kategorija Automobili na prvom mestu
 //Klik na kategoriju Automobili
-//Validarati da je kategorija Automobili na prvom mestu
-
+//Validarati da je kategorija Automobili izbacena iz liste.
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
