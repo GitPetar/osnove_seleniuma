@@ -52,6 +52,8 @@ public static void main(String[] args) throws InterruptedException {
         actions.moveToElement(element.findElement(By.xpath("./.."))).build().perform();
         element.click();
     });
+    webElements = driver.findElements((By.xpath("//button[contains(@class,'destroy')]")));
+    if (webElements.size() == 0) {System.out.println("Svi elementi su izbrisani");}
     Thread.sleep(5000);
     driver.quit();
 }
