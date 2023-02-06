@@ -2,6 +2,7 @@ package domaci30_01_2023;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +10,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 //Zadatak
@@ -31,26 +34,18 @@ public static void main(String[] args) throws InterruptedException {
     driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     driver.get("https://web.dev/patterns/web-vitals-patterns/infinite-scroll/infinite-scroll/demo.html");
     Select select = new Select(driver.findElement(By.tagName("select")));
-    //List<WebElement> items = new ArrayList<>(driver.findElements(By.className("item")));
-    //
-    //
+    
     select.selectByVisibleText("2000ms");
     wait.until(ExpectedConditions.presenceOfElementLocated(By.id("infinite-scroll-button")));
-    actions.scrollToElement(driver.findElement(By.id("infinite-scroll-button"))).perform();
-    actions.scrollToElement(driver.findElement(By.className("item")));
-    Thread.sleep(1000);
-    actions.scrollToElement(driver.findElement(By.id("infinite-scroll-button"))).perform();
-    actions.scrollToElement(driver.findElement(By.className("item")));
-    Thread.sleep(1000);
+    for (WebElement item : driver.findElements(By.className("item"))) {
+        actions.scrollToElement(item).perform();
+    }
     actions.scrollToElement(driver.findElement(By.id("infinite-scroll-button"))).perform();
     wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.id("infinite-scroll-button"))));
+    List<WebElement> items = new ArrayList<>(driver.findElements(By.className("item")));
     driver.findElement(By.id("infinite-scroll-button")).click();
-    //    items =
-    //    wait.until(ExpectedConditions.numberOfElementsToBeMoreThan())
+    wait.until(ExpectedConditions.numberOfElementsToBeMoreThan(By.className("item"), items.size()));
     Thread.sleep(4000);
     driver.quit();
-    
-    //Komentar: Problem na stranici, jer dugme nikad ne postane clickable nakon sto se skroluje dole
-    //Ako stignem, vraticu se na ovaj zadatak da ga resim na drugi nacin
 }
 }
